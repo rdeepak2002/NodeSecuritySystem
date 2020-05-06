@@ -1,0 +1,24 @@
+{
+  "name": "nodesecuritysystem",
+  "version": "1.0.0",
+  "description": "Node JS security system using express and Open CV.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"hello world\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdeepak2002/NodeSecuritySystem.git"
+  },
+  "author": "Deepak Ramalingam",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/rdeepak2002/NodeSecuritySystem/issues"
+  },
+  "homepage": "https://github.com/rdeepak2002/NodeSecuritySystem#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "opencv4nodejs": "^5.5.0",
+    "socket.io": "^2.3.0"
+  }
+}
