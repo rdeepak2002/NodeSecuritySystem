@@ -1,8 +1,8 @@
-#NODE SECURITY SYSTEM
+# NODE SECURITY SYSTEM
 
-##Author
+## Author
 Deepak Ramalingam
 
-##Description
+## Description
 Using OPEN CV and Node.js to create a realtime security 
 system.
