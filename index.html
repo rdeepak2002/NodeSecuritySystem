@@ -13,6 +13,10 @@
                 imageElement.src = 'data:image/jpeg;base64,'+image
             })
 
+            socket.on('error', (error) => {
+                console.error(error)
+            })
+
         </script>
     </body>
 </html>

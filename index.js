@@ -1,33 +1,30 @@
-let cv = require('opencv4nodejs');
-let path = require('path');
-let express = require('express');
-let app = express();
-let server = require('http').createServer(app);
-let io = require('socket.io')(server);
+const cv = require('opencv4nodejs')
+const path = require('path')
+const express = require('express')
+const app = express()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 
-let FPS = 15;
-let webcamCapture = new cv.VideoCapture(0);
-
-
-// webcamCapture.set(cv.CAP_PROP_FRAME_WIDTH, 480)
-// webcamCapture.set(cv.CAP_PROP_FRAME_HEIGHT, 270)
+const FPS = 15
+const webcamCapture = new cv.VideoCapture(0)
 
 app.get('/', (req, res) =>  {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
+    res.sendFile(path.join(__dirname, 'index.html'))
+})
 
 setInterval(() => {
     try {
-        let frame = webcamCapture.read();
-        let image = cv.imencode('.jpg', frame).toString('base64');
-        io.emit('image', image);
+        let frame = webcamCapture.read()
+        frame = frame.resize(360, 640)
+        const image = cv.imencode('.jpg', frame).toString('base64')
+        io.emit('image', image)
     }
     catch(error) {
-        console.error(error);
-        webcamCapture.release();
-        webcamCapture = new cv.VideoCapture(0);
+        console.error(error)
+        webcamCapture.release()
+        io.emit('error', error)
     }
 
-}, 1000/FPS);
+}, 1000/FPS)
 
-server.listen(3000);
+server.listen(3000)
