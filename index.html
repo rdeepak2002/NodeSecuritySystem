@@ -6,17 +6,29 @@
         <img id='image'>
         <script>
             const socket = io('http://localhost:3000')
+            let latencyArr = [];
+            let averageLatency = -1;
 
             socket.on('image', (image) => {
                 const imageElement = document.getElementById('image')
-
                 imageElement.src = 'data:image/jpeg;base64,'+image
+            })
+
+            socket.on('latency', (latency) => {
+                latencyArr.push(latency)
+                if(latencyArr.length == 100) {
+                    for(let i = 0; i < 100; i++) {
+                        averageLatency += latencyArr[i]
+                    }
+                    averageLatency = averageLatency/100
+                    console.log(averageLatency)
+                    latencyArr = []
+                }
             })
 
             socket.on('error', (error) => {
                 console.error(error)
             })
-
         </script>
     </body>
 </html>
