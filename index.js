@@ -6,6 +6,7 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
 const FPS = 15
+const faceClassifier = new cv.CascadeClassifier(cv.HAAR_FRONTALFACE_DEFAULT)
 const bodyClassifier = new cv.CascadeClassifier(cv.HAAR_FULLBODY)
 let webcamCapture = new cv.VideoCapture(0)
 
@@ -22,14 +23,22 @@ function processVideo() {
     try {
         const frame = webcamCapture.read().resize(360, 640)
         const greyImg = frame.bgrToGray()
-        const bodyRects = bodyClassifier.detectMultiScale(greyImg).objects
+        const faceRects = faceClassifier.detectMultiScale(greyImg).objects
+        // const bodyRects = bodyClassifier.detectMultiScale(greyImg).objects
 
-        if(bodyRects.length) {
-            let rect = bodyRects[0]
+        if(faceRects.length) {
+            let rect = faceRects[0]
             let point1 = new cv.Point2(rect.x, rect.y)
             let point2 = new cv.Point2(rect.x+rect.width, rect.y+rect.width)
             frame.drawRectangle(point1, point2, purpleColor, rectThickness2)
         }
+
+        // if(bodyRects.length) {
+        //     let rect = bodyRects[0]
+        //     let point1 = new cv.Point2(rect.x, rect.y)
+        //     let point2 = new cv.Point2(rect.x+rect.width, rect.y+rect.width)
+        //     frame.drawRectangle(point1, point2, purpleColor, rectThickness2)
+        // }
 
         const image = cv.imencode('.jpg', frame).toString('base64')
 
