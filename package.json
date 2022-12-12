@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/rdeepak2002/NodeSecuritySystem#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "opencv4nodejs": "^5.5.0",
     "socket.io": "^2.3.0"
   }
